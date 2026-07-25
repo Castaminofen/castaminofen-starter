@@ -1,14 +1,15 @@
 # گزارش تحویل پروژه — Castaminofen
 
-تاریخ: 2026-07-18
+تاریخ: 2026-07-25
 
 ## 1. وضعیت کنونی پروژه
 - مخزن مونو-ریپو با دو اپلیکیشن اصلی در [apps/api](../apps/api) و [apps/web](../apps/web) و بسته‌های مشترک در [packages](../packages) در حال نگهداری است.
-- فاز 3.2.4 — Player Test Infrastructure Foundation با اضافه‌شدن runner رسمی Vitest و اولین تست‌های قابل اجرا برای Player Runtime تکمیل شده است.
-- فاز 3.2.3 — Player Runtime Cleanup با تکمیل بسته در این نسخه، تکمیل شده است.
+- فاز 3.5 — Library Readiness Audit به‌صورت اخیر تکمیل شده است و تمام یافته‌ها و توصیه‌ها در [docs/reports/phase-3.5-library-readiness-audit.md](../docs/reports/phase-3.5-library-readiness-audit.md) مستندسازی شده‌اند.
+- نتیجه‌ی حاصل: معماری آمادگی دارد اما داده‌های backend برای مدل‌های UserSubscription و ListeningHistory نیاز دارند.
+- فاز 3.6 — Library Backend Readiness برای طراحی مدل‌های داده و endpoints پیشنهاد شده است.
 - ساختار پایه، تنظیمات TypeScript، ESLint و پیکربندی‌های توسعه برای هر اپ در دسترس است.
 - لایه‌ی foundation فرانت‌اند (design system، app shell، infrastructure و state patterns) در این نسخه پیاده‌سازی شده است.
-- ویژگی‌های MVP فعلی شامل auth، پادکست و اپیزود نیز در حال حاضر فعال و قابل‌استفاده هستند.
+- ویژگی‌های MVP فعلی شامل auth، پادکست، اپیزود، player و search نیز در حال حاضر فعال و قابل‌استفاده هستند.
 - فاز 2.6.3 این مستندات را با واقعیت فعلی ریپو هم‌ساز کرده و مرز بین foundation و featureهای فعلی را روشن‌تر می‌کند.
 
 ## 2. فازهای تکمیل‌شده
