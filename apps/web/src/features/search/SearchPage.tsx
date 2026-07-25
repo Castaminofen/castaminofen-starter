@@ -1,20 +1,23 @@
 "use client";
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchInput from './components/SearchInput';
 import SearchResults from './components/SearchResults';
 
+type SearchParams = {
+  q: string;
+  page: number;
+};
+
 export default function SearchPage() {
-  const [q, setQ] = useState('');
-  const [page, setPage] = useState(1);
+  const [params, setParams] = useState<SearchParams | null>(null);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setQ(params.get('q') ?? '');
-    setPage(Number(params.get('page') ?? '1') || 1);
+    const searchParams = new URLSearchParams(window.location.search);
+    const q = searchParams.get('q') ?? '';
+    const page = Number(searchParams.get('page') ?? '1') || 1;
+    setParams({ q, page });
   }, []);
-
-  const params = useMemo(() => ({ q, page }), [q, page]);
 
   return (
     <main className="page-container">
@@ -26,9 +29,9 @@ export default function SearchPage() {
           </div>
         </div>
 
-        <SearchInput defaultQuery={q} onNavigate={(newQ) => (window.location.href = `/search?q=${encodeURIComponent(newQ)}&page=1`)} />
+        <SearchInput defaultQuery={params?.q ?? ''} onNavigate={(newQ) => (window.location.href = `/search?q=${encodeURIComponent(newQ)}&page=1`)} />
 
-        <SearchResults q={params.q} page={params.page} />
+        {params ? <SearchResults q={params.q} page={params.page} /> : null}
       </section>
     </main>
   );

@@ -35,10 +35,7 @@ export default function SearchResults({ q, page }: { q: string; page: number }) 
             className="button button-secondary"
             onClick={() => {
               const prev = Math.max(1, page - 1);
-              const url = `/search?q=${encodeURIComponent(q)}&page=${prev}`;
-              window.history.pushState({}, '', url);
-              // trigger navigation by reloading location
-              window.location.reload();
+              window.location.href = `/search?q=${encodeURIComponent(q)}&page=${prev}`;
             }}
             disabled={page === 1}
           >
@@ -53,9 +50,7 @@ export default function SearchResults({ q, page }: { q: string; page: number }) 
             className="button button-secondary"
             onClick={() => {
               const next = Math.min(totalPages, page + 1);
-              const url = `/search?q=${encodeURIComponent(q)}&page=${next}`;
-              window.history.pushState({}, '', url);
-              window.location.reload();
+              window.location.href = `/search?q=${encodeURIComponent(q)}&page=${next}`;
             }}
             disabled={page === totalPages}
           >

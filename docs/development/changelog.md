@@ -2,6 +2,7 @@
 
 | تاریخ | فاز | تغییرات | وضعیت |
 | --- | --- | --- | --- |
+| 2026-07-25 | Phase 3.4.3 - Search Validation | Validated Search MVP architecture, runtime behavior, URL contract, and dependencies; fixed SearchPage URL initialization bug | انجام شده |
 | 2026-07-18 | Phase 3.2.4 - Player Test Infrastructure Foundation | Added Vitest support to the web package, enabled execution of playable Player runtime regression tests, and verified web test/lint/build success without changing runtime behavior | انجام شده |
 | 2026-07-18 | Phase 3.2.3 - Player Runtime Cleanup | Introduced singleton Player Runtime ownership, normalized PlayerProgress state to currentPosition, and fixed premature playback state mutation from setCurrentItem | انجام شده |
 | 2026-07-16 | Pre-Phase 2 - Linting | Add ESLint monorepo configuration, per-package configs, scripts and fixes; ensured TypeScript/ESLint compatibility and resolved lint warnings | انجام شده |
