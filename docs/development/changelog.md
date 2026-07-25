@@ -3,6 +3,7 @@
 | تاریخ | فاز | تغییرات | وضعیت |
 | --- | --- | --- | --- |
 | 2026-07-25 | Phase 3.5 - Library Readiness Audit | Performed comprehensive architectural readiness audit for Library feature; documented current state, data model gaps (UserSubscription, ListeningHistory), ownership boundaries, MVP scope, and backend/frontend readiness; identified critical blockers requiring Phase 3.6 backend data model design before implementation | انجام شده |
+| 2026-07-25 | Phase 3.5.1 - Library Backend Architecture & Data Model Definition | Defined documentation-only backend ownership, minimum MVP data model, Prisma relationship direction, REST contracts, authorization rules, service boundaries, migration strategy, and future extensibility for Library without changing code or schema | انجام شده |
 | 2026-07-25 | Phase 3.4.3 - Search Validation | Validated Search MVP architecture, runtime behavior, URL contract, and dependencies; fixed SearchPage URL initialization bug | انجام شده |
 | 2026-07-18 | Phase 3.2.4 - Player Test Infrastructure Foundation | Added Vitest support to the web package, enabled execution of playable Player runtime regression tests, and verified web test/lint/build success without changing runtime behavior | انجام شده |
 | 2026-07-18 | Phase 3.2.3 - Player Runtime Cleanup | Introduced singleton Player Runtime ownership, normalized PlayerProgress state to currentPosition, and fixed premature playback state mutation from setCurrentItem | انجام شده |

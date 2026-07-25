@@ -5,6 +5,7 @@
 ## 1. وضعیت کنونی پروژه
 - مخزن مونو-ریپو با دو اپلیکیشن اصلی در [apps/api](../apps/api) و [apps/web](../apps/web) و بسته‌های مشترک در [packages](../packages) در حال نگهداری است.
 - فاز 3.5 — Library Readiness Audit به‌صورت اخیر تکمیل شده است و تمام یافته‌ها و توصیه‌ها در [docs/reports/phase-3.5-library-readiness-audit.md](../docs/reports/phase-3.5-library-readiness-audit.md) مستندسازی شده‌اند.
+- فاز 3.5.1 — Library Backend Architecture & Data Model Definition نیز به‌صورت documentation-only تکمیل شده و در [docs/reports/phase-3.5.1-library-backend-architecture.md](../docs/reports/phase-3.5.1-library-backend-architecture.md) ثبت شده است.
 - نتیجه‌ی حاصل: معماری آمادگی دارد اما داده‌های backend برای مدل‌های UserSubscription و ListeningHistory نیاز دارند.
 - فاز 3.6 — Library Backend Readiness برای طراحی مدل‌های داده و endpoints پیشنهاد شده است.
 - ساختار پایه، تنظیمات TypeScript، ESLint و پیکربندی‌های توسعه برای هر اپ در دسترس است.
