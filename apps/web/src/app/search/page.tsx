@@ -1,15 +1,9 @@
-import { RoutePlaceholder } from '@/components/layout/route-placeholder';
+"use client";
 
-export default function SearchPage() {
-  return (
-    <RoutePlaceholder
-      title="جستجو"
-      description="این صفحه برای ساختاردهی مسیر جستجو در آینده آماده شده است."
-      badge="Route foundation"
-      links={[{ href: '/', label: 'خانه' }, { href: '/library', label: 'کتابخانه' }]}
-      stateVariant="empty"
-      stateTitle="وضعیت خالی"
-      stateDescription="این الگوی صفحه برای حالت‌های بدون محتوا در مسیرهای آینده قابل استفاده است."
-    />
-  );
+export const dynamic = 'force-dynamic';
+
+import SearchPage from '@/features/search';
+
+export default function Page() {
+  return <SearchPage />;
 }
