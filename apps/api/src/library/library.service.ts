@@ -1,4 +1,5 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { PodcastsService } from '../podcasts/podcasts.service';
 import { UpdateListeningHistoryDto } from './dto/update-listening-history.dto';
@@ -11,15 +12,14 @@ export class LibraryService {
     // validate podcast exists
     await this.podcastsService.findById(podcastId);
 
-    const exists = await this.prisma.userSubscription.findUnique({
-      where: { userId_podcastId: { userId, podcastId } },
-    });
-
-    if (exists) {
-      throw new ConflictException('Already subscribed');
+    try {
+      return await this.prisma.userSubscription.create({ data: { userId, podcastId } });
+    } catch (e: any) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+        throw new ConflictException('Already subscribed');
+      }
+      throw e;
     }
-
-    return this.prisma.userSubscription.create({ data: { userId, podcastId } });
   }
 
   async unsubscribe(userId: string, podcastId: string) {
@@ -44,7 +44,7 @@ export class LibraryService {
 
   async getContinueListening(userId: string) {
     const items = await this.prisma.listeningHistory.findMany({
-      where: { userId },
+      where: { userId, completed: false },
       orderBy: { lastPlayedAt: 'desc' },
       include: { episode: { include: { podcast: true } } },
       take: 20,
