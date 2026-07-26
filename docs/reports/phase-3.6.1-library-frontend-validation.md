@@ -26,6 +26,28 @@
 
 Library می‌تواند به‌صورت یک feature route مستقل در ساختار فعلی باقی بماند و برای این منظور نیازی به تغییر معماری routing یا AppShell وجود ندارد. ساختار فعلی از لحاظ route-placement مناسب است.
 
+### ProtectedRoute runtime flow
+
+```text
+User
+↓
+/library
+↓
+ProtectedRoute
+↓
+Authenticated ?
+├── No → Login
+└── Yes
+↓
+React Query
+↓
+Library API
+↓
+Render Sections
+```
+
+این جریان نشان می‌دهد که Library باید در مرحله‌ی ورود به صفحه، از Auth guard استفاده کند اما هیچ منطق احراز هویت را در خود Library نگه ندارد. در نتیجه، پیاده‌سازی auth داخل Library به‌عنوان یک violation architectural در نظر گرفته می‌شود.
+
 ---
 
 ## Feature Ownership Validation
@@ -79,6 +101,15 @@ Library نباید مسئول موارد زیر باشد:
 ### نتیجه
 
 استراتژی React Query پیشنهادی با الگوی فعلی سازگار است و خطر duplicated source of truth در آن پایین است، مشروط بر اینکه Library فقط داده‌های user-specific خود را در cache خود نگه دارد و به `podcasts` cache فقط به‌صورت read-only یا secondary reference نگاه کند.
+
+### Matrix of invalidation behavior
+
+| Mutation | Invalidates | Purpose |
+| --- | --- | --- |
+| Subscribe | `['library', 'subscriptions']` | Refresh the user subscriptions list after a new subscription is created. |
+| Unsubscribe | `['library', 'subscriptions']` | Refresh the subscriptions list after removing a subscription. |
+| Update History | `['library', 'continue-listening']` | Refresh continue-listening data after playback progress changes. |
+| Overview refresh | `['library']` | Refresh library-wide cached summaries or composite views when a library mutation affects multiple sections. |
 
 ---
 
@@ -188,6 +219,10 @@ Library می‌تواند از داده‌های Podcast به‌صورت consume
 ### نتیجه
 
 استراتژی performance پیشنهادی برای MVP مناسب است و بهینه‌سازی زودهنگام ضروری به‌نظر نمی‌رسد.
+
+> Virtualization intentionally deferred for MVP.
+>
+> Current expected dataset size does not justify additional rendering complexity.
 
 ---
 
