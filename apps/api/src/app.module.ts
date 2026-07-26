@@ -8,6 +8,7 @@ import { PodcastsModule } from './podcasts/podcasts.module';
 import { EpisodesModule } from './episodes/episodes.module';
 import { StorageModule } from './storage/storage.module';
 import { LibraryModule } from './library/library.module';
+import { PlaylistsModule } from './playlists/playlists.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { LibraryModule } from './library/library.module';
     PodcastsModule,
     EpisodesModule,
     LibraryModule,
+    PlaylistsModule,
     StorageModule,
   ],
   controllers: [],

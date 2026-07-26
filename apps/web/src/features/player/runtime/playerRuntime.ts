@@ -4,7 +4,7 @@ import type { PlayableItem, PlayerPlaybackStatus } from '../types';
 import type { PlayerState } from '../store/playerStore';
 
 export type PlayerRuntimeController = {
-  loadItem(item: PlayableItem): Promise<void>;
+  loadItem(item: PlayableItem, options?: { startTime?: number }): Promise<void>;
   play(): Promise<void>;
   pause(): void;
   stop(): void;
@@ -54,9 +54,10 @@ export function createPlayerRuntimeController(store: PlayerState, engine: AudioE
     });
   };
 
-  const playItem = async (item: PlayableItem) => {
+  const playItem = async (item: PlayableItem, options?: { startTime?: number }) => {
     const loadToken = ++currentLoadToken;
     activeItemId = item.id;
+    const startTime = normalizeTime(options?.startTime ?? 0);
 
     if (!item.audioUrl) {
       store.setCurrentItem(item);
@@ -77,11 +78,15 @@ export function createPlayerRuntimeController(store: PlayerState, engine: AudioE
       currentItem: item,
       playbackStatus: 'loading',
       duration: 0,
-      currentPosition: 0,
+      currentPosition: startTime,
       error: null,
     });
 
     engine.load(item.audioUrl);
+
+    if (startTime > 0) {
+      engine.setCurrentTime(startTime);
+    }
 
     try {
       await engine.play();
@@ -93,7 +98,7 @@ export function createPlayerRuntimeController(store: PlayerState, engine: AudioE
         currentItem: item,
         playbackStatus: 'playing',
         duration: normalizeTime(engine.getDuration()),
-        currentPosition: normalizeTime(engine.getCurrentTime()),
+        currentPosition: startTime > 0 ? startTime : normalizeTime(engine.getCurrentTime()),
         error: null,
       });
     } catch (error) {
@@ -168,9 +173,9 @@ export function createPlayerRuntimeController(store: PlayerState, engine: AudioE
   });
 
   return {
-    async loadItem(item) {
+    async loadItem(item, options) {
       store.replaceQueue([item], 0);
-      await playItem(item);
+      await playItem(item, options);
     },
     async play() {
       const currentStore = getStoreState();

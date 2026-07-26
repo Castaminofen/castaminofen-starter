@@ -8,6 +8,7 @@ export function useUpdateListeningHistory() {
     mutationFn: updateListeningHistory,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['library', 'continue-listening'] });
+      queryClient.invalidateQueries({ queryKey: ['library'] });
     },
   });
 }
