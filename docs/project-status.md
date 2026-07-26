@@ -209,3 +209,10 @@
 - بازبینی معماری Player Runtime، Store، Episode boundary، UI surface و Queue/Playback modes انجام شد و نتیجه آن READY FOR PHASE 3.3 IMPLEMENTATION بود.
 - گزارش کامل در [docs/phases/phase-3.3-player-runtime-ux-readiness-audit-report.md](./phases/phase-3.3-player-runtime-ux-readiness-audit-report.md) ثبت شد.
 - اعتبارسنجی با lint و build وب انجام شد و هیچ تغییر runtime، API یا route ایجاد نشد.
+
+## 24. وضعیت فاز 3.8 — Library & Player Runtime Integration
+- فاز 3.8 با هدف ادغام حداقلی Library و Player Runtime بدون تغییر مالکیت، routing، backend contracts یا UI design اجرا شد.
+- Library اکنون با استفاده از Player runtime و state موجود، اپیزودهای Continue Listening را با positionSeconds ذخیره‌شده باز می‌کند و از Player-owned queue/runtime برای شروع پخش استفاده می‌کند.
+- state نمایشی “در حال پخش” در Library از Player state استخراج می‌شود و هیچ state دوتایی برای playback در Library اضافه نشده است.
+- history progress از طریق hook موجود و mutation library/history به‌روزرسانی می‌شود و duplicate tracking حذف شده است.
+- اعتبارسنجی با regression test Player Runtime، lint وب و build وب انجام شد.

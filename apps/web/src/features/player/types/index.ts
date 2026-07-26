@@ -11,6 +11,7 @@ export interface PlayableItem {
   audioUrl?: string;
   artworkUrl?: string;
   duration?: number;
+  podcastId?: string;
   sourceType: PlayableSourceType;
 }
 

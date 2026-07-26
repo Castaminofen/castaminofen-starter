@@ -15,10 +15,11 @@ export function LibraryEmptyState({
 }) {
   return (
     <EmptyState
+      className="border border-border/80 bg-surface-primary/70 p-6 sm:p-8"
       title={title}
       description={description}
       action={
-        <Link href="/podcasts">
+        <Link href="/podcasts" className="inline-flex">
           <Button variant="primary" size="sm">
             {actionLabel}
           </Button>

@@ -9,6 +9,7 @@ export function mapEpisodeToPlayableItem(episode: Episode): PlayableItem {
     audioUrl: episode.audioUrl,
     artworkUrl: undefined,
     duration: undefined,
+    podcastId: episode.podcastId,
     sourceType: 'episode',
   };
 }

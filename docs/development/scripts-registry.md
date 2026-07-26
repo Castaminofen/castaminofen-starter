@@ -47,6 +47,20 @@ Verify the Next.js frontend passes ESLint after UI integration changes.
 
 Used in:
 Phase 2.4.3
+Phase 3.8
 
 Last Verified:
-2026-07-17
+2026-07-26
+
+---
+
+## pnpm --filter @castaminofen/web exec vitest run src/features/player/runtime/playerRuntime.test.ts
+
+Purpose:
+Run the Player runtime regression suite covering queue, resume, and playback-state behavior.
+
+Used in:
+Phase 3.8
+
+Last Verified:
+2026-07-26

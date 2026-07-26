@@ -318,6 +318,20 @@ describe('PlayerRuntime controller', () => {
     expect(usePlayerStore.getState().currentPosition).toBe(5);
   });
 
+  test('loadItem can resume playback from an initial position', async () => {
+    const store = usePlayerStore.getState();
+    const engine = createEngineMock({
+      getCurrentTime: vi.fn(() => 42),
+      getDuration: vi.fn(() => 180),
+    });
+    const controller = createPlayerRuntimeController(store, engine);
+
+    await controller.loadItem(createItem('resume'), { startTime: 42 });
+
+    expect(engine.setCurrentTime).toHaveBeenCalledWith(42);
+    expect(usePlayerStore.getState().currentPosition).toBe(42);
+  });
+
   test('setCurrentTime updates audio engine and playback position', () => {
     const store = usePlayerStore.getState();
     const engine = createEngineMock({ getCurrentTime: vi.fn(() => 30), getDuration: vi.fn(() => 100) });
