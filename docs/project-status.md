@@ -75,6 +75,12 @@
 - اعتبارسنجی با Player runtime tests، lint و build انجام شد و نتیجه آن PASS بود.
 - هیچ fix runtime یا معماری‌ای لازم نبود و مستند فاز در [docs/phases/Phase-3.8.1-Library-Player-Runtime-Validation.md](./phases/Phase-3.8.1-Library-Player-Runtime-Validation.md) ثبت شد.
 
+## 26. وضعیت فاز 4.3
+- فاز 4.3 — Playlist Runtime Integration با موفقیت اجرا شد.
+- اجرای این فاز شامل ادغام حداقلی Playback Intent Playlist با Player Runtime از طریق adapter موجود، ایجاد plan ساده‌ی queue برای Play All و Play From Episode، و حفظ مرز مالکیت Player بدون افزودن runtime یا store جدید بود.
+- اعتبارسنجی با lint، build و test وب انجام شد و نتیجه آن PASS بود.
+- مستند فاز در [docs/Phase-4.3-Playlist-Runtime-Integration.md](./Phase-4.3-Playlist-Runtime-Integration.md) ثبت شد.
+
 ## 9. وضعیت فاز 2.7.1
 - فاز 2.7.1 — Auth Feature Boundary Adoption با موفقیت اجرا شد.
 - مرز مالکیت auth در سطح فرانت‌اند به‌صورت تدریجی و بدون تغییر رفتار یا قرارداد API تثبیت شد.

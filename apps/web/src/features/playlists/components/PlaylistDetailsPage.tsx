@@ -5,12 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePlayerRuntime } from '@/features/player';
-import { mapEpisodeToPlayableItem } from '@/features/player/adapters/episodeToPlayable';
 import { PlaylistActionBar } from './PlaylistActionBar';
 import { PlaylistEpisodeList } from './PlaylistEpisodeList';
 import { PlaylistErrorState } from './PlaylistErrorState';
 import { PlaylistLoadingState } from './PlaylistLoadingState';
 import { useDeletePlaylist, usePlaylist, useRemovePlaylistItem } from '../hooks/usePlaylists';
+import { buildPlaylistPlaybackPlan } from '../utils/playlistPlayback';
 import { getPlaylistPlaceholderLabel } from '../utils/playlist-utils';
 
 export function PlaylistDetailsPage() {
@@ -51,6 +51,24 @@ export function PlaylistDetailsPage() {
     await removeItemMutation.mutateAsync({ playlistId, episodeId });
   }
 
+  async function handlePlayAll() {
+    if (!playlist?.items?.length) {
+      return;
+    }
+
+    const plan = buildPlaylistPlaybackPlan(playlist.items);
+    await playerRuntime.replaceQueue(plan.queue, plan.startIndex);
+  }
+
+  async function handlePlayFromEpisode(episodeId: string) {
+    if (!playlist?.items?.length) {
+      return;
+    }
+
+    const plan = buildPlaylistPlaybackPlan(playlist.items, episodeId);
+    await playerRuntime.replaceQueue(plan.queue, plan.startIndex);
+  }
+
   if (query.isLoading) {
     return <PlaylistLoadingState />;
   }
@@ -82,7 +100,7 @@ export function PlaylistDetailsPage() {
               <span>به‌روز شده در {new Date(playlist.updatedAt).toLocaleDateString('fa-IR')}</span>
             </div>
           </div>
-          <PlaylistActionBar onDelete={handleDelete} />
+          <PlaylistActionBar onDelete={handleDelete} onPlayAll={handlePlayAll} />
         </div>
       </section>
 
@@ -101,7 +119,7 @@ export function PlaylistDetailsPage() {
         <PlaylistEpisodeList
           items={playlist.items ?? []}
           onPlay={(item) => {
-            void playerRuntime.replaceQueue([mapEpisodeToPlayableItem(item.episode)], 0);
+            void handlePlayFromEpisode(item.episodeId);
           }}
           onRemove={(item) => {
             void handleRemoveEpisode(item.episodeId);
