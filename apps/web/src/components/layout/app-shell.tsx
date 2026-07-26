@@ -12,10 +12,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       <Header />
       <main className="flex-1">
         <MobileContainer>
-          <div className="app-shell__content py-4">{children}</div>
+          <div className="app-shell__content px-1 py-3 sm:px-0 sm:py-4">{children}</div>
         </MobileContainer>
       </main>
-      <div className="px-4 pb-3 sm:px-6 lg:px-8">
+      <div className="px-3 pb-3 pt-2 sm:px-6 lg:px-8">
         <PlayerBar />
       </div>
       <BottomNavigation />

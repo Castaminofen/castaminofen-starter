@@ -11,7 +11,7 @@ export function PlaylistCard({ playlist, onDelete, onEdit }: { playlist: Playlis
     <article className="card flex flex-col gap-4">
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-border bg-surface-primary text-sm font-semibold text-text-primary">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-border bg-surface-primary text-sm font-semibold text-text-primary">
             {playlist.imageUrl ? <span className="h-full w-full rounded-2xl bg-cover bg-center" style={{ backgroundImage: `url(${playlist.imageUrl})` }} aria-hidden="true" /> : <span>{getPlaylistPlaceholderLabel(playlist.title)}</span>}
           </div>
           <div className="min-w-0">

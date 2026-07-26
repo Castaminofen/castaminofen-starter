@@ -15,7 +15,7 @@ export function LibraryEpisodeRow({
   const artworkInitial = episode.title.trim().charAt(0) || 'پ';
 
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-surface-primary/70 p-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-surface-primary/70 p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-start gap-3">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/25 to-accent/5 text-sm font-semibold text-accent">
           {artworkInitial}

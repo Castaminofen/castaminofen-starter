@@ -48,27 +48,35 @@ export function RegisterPageView() {
 
   return (
     <main className="page-container">
-      <section className="card">
-        <h1>Register</h1>
-        <Form onSubmit={form.handleSubmit(onSubmit)}>
+      <section className="card mx-auto w-full max-w-xl space-y-6">
+        <div className="space-y-2">
+          <p className="text-caption">ثبت‌نام</p>
+          <h1 className="text-heading">حساب کاربری جدید ایجاد کنید</h1>
+          <p className="text-body m-0">با ثبت‌نام، دسترسی به کتابخانه، لیست پخش و تجربه پخش ادامه‌دار را داشته باشید.</p>
+        </div>
+        <Form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField>
-            <FormLabel htmlFor="email">Email</FormLabel>
+            <FormLabel htmlFor="email">ایمیل</FormLabel>
             <Input id="email" type="email" autoComplete="email" {...form.register('email')} />
-            {form.formState.errors.email && <p className="error-text">{form.formState.errors.email.message}</p>}
+            {form.formState.errors.email ? <p className="error-text">{form.formState.errors.email.message}</p> : null}
           </FormField>
           <FormField>
-            <FormLabel htmlFor="password">Password</FormLabel>
+            <FormLabel htmlFor="password">رمز عبور</FormLabel>
             <Input id="password" type="password" autoComplete="new-password" {...form.register('password')} />
-            {form.formState.errors.password && <p className="error-text">{form.formState.errors.password.message}</p>}
+            {form.formState.errors.password ? <p className="error-text">{form.formState.errors.password.message}</p> : null}
           </FormField>
           <FormField>
-            <FormLabel htmlFor="name">Name</FormLabel>
+            <FormLabel htmlFor="name">نام</FormLabel>
             <Input id="name" type="text" autoComplete="name" {...form.register('name')} />
-            {form.formState.errors.name && <p className="error-text">{form.formState.errors.name.message}</p>}
+            {form.formState.errors.name ? <p className="error-text">{form.formState.errors.name.message}</p> : null}
           </FormField>
-          {error && <p className="error-text">{error}</p>}
-          <Button type="submit" disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? 'Creating account...' : 'Register'}
+          {error ? (
+            <div className="rounded-2xl border border-error/30 bg-error/5 p-3" role="alert">
+              <p className="error-text m-0">{error}</p>
+            </div>
+          ) : null}
+          <Button type="submit" className="w-full justify-center" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting ? 'در حال ساخت حساب...' : 'ثبت‌نام'}
           </Button>
         </Form>
       </section>

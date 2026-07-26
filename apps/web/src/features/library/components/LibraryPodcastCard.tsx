@@ -22,7 +22,7 @@ export function LibraryPodcastCard({
   const isCurrentlyPlaying = playerState.currentItem?.podcastId === podcast.id;
 
   return (
-    <Card className="p-4 sm:p-5">
+    <Card className="p-4 shadow-sm sm:p-5">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-start gap-3">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/25 to-accent/5 text-sm font-semibold text-accent">
@@ -35,7 +35,7 @@ export function LibraryPodcastCard({
         </div>
 
         <div className="flex flex-col items-stretch gap-3 sm:items-end">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center rounded-full border border-border bg-surface-secondary px-2.5 py-1 text-xs text-text-secondary">
               {isCurrentlyPlaying ? 'در حال پخش' : 'آماده برای گوش دادن'}
             </span>

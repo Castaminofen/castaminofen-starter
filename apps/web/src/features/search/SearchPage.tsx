@@ -21,12 +21,10 @@ export default function SearchPage() {
 
   return (
     <main className="page-container">
-      <section className="card">
-        <div className="header">
-          <div>
-            <h1>Search</h1>
-            <p>Search podcasts by title or description.</p>
-          </div>
+      <section className="card space-y-6">
+        <div className="space-y-2">
+          <h1 className="text-heading">جستجو</h1>
+          <p className="text-body m-0">برای کشف پادکست‌های جدید، عنوان، توضیحات یا نام پادکست را وارد کنید.</p>
         </div>
 
         <SearchInput defaultQuery={params?.q ?? ''} onNavigate={(newQ) => (window.location.href = `/search?q=${encodeURIComponent(newQ)}&page=1`)} />

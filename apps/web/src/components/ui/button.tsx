@@ -18,7 +18,7 @@ export function Button({
     <button
       type={type}
       className={clsx(
-        'button',
+        'button shadow-sm',
         {
           'button-primary': variant === 'primary',
           'button-secondary': variant === 'secondary',

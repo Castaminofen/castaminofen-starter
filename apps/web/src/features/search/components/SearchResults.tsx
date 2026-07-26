@@ -12,25 +12,25 @@ export default function SearchResults({ q, page }: { q: string; page: number }) 
 
   const totalPages = query.data?.pagination.totalPages ?? 1;
 
-  if (query.isLoading) return <LoadingState message="Loading search results..." />;
-  if (query.isError) return <ErrorState message={query.error?.message ?? 'Unable to search'} />;
+  if (query.isLoading) return <LoadingState title="در حال جستجو" message="در حال بررسی نتایج برای عبارت موردنظر هستیم…" />;
+  if (query.isError) return <ErrorState title="جستجو با مشکل مواجه شد" message={query.error?.message ?? 'امکان انجام جستجو در این لحظه وجود ندارد.'} description="لطفاً دوباره تلاش کنید." />;
 
   const items = query.data?.data ?? [];
 
   if (!items.length) {
-    return <EmptyState title="No results" description={`No podcasts found for “${q || 'your search'}”.`} />;
+    return <EmptyState title="نتیجه‌ای یافت نشد" description={`برای «${q || 'جستجوی شما'}» هیچ پادکستی پیدا نشد. از عبارت دیگری استفاده کنید.`} />;
   }
 
   return (
-    <>
-      <div className="field-row">
+    <div className="space-y-5">
+      <div className="grid gap-4 md:grid-cols-2">
         {items.map((podcast) => (
           <PodcastCard key={podcast.id} podcast={podcast} />
         ))}
       </div>
 
       {totalPages > 1 ? (
-        <div className="toolbar" style={{ justifyContent: 'center', marginTop: '1.5rem' }}>
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <button
             className="button button-secondary"
             onClick={() => {
@@ -39,10 +39,10 @@ export default function SearchResults({ q, page }: { q: string; page: number }) 
             }}
             disabled={page === 1}
           >
-            Previous
+            قبلی
           </button>
 
-          <span>
+          <span className="rounded-full border border-border bg-surface-secondary px-3 py-1.5 text-sm text-text-secondary">
             {page} / {totalPages}
           </span>
 
@@ -54,10 +54,10 @@ export default function SearchResults({ q, page }: { q: string; page: number }) 
             }}
             disabled={page === totalPages}
           >
-            Next
+            بعدی
           </button>
         </div>
       ) : null}
-    </>
+    </div>
   );
 }
