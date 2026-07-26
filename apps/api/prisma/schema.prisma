@@ -16,6 +16,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   podcasts  Podcast[]
+  userSubscriptions UserSubscription[]
+  listeningHistories ListeningHistory[]
 }
 
 model Podcast {
@@ -30,6 +32,7 @@ model Podcast {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   episodes   Episode[]
+  subscriptions UserSubscription[]
 }
 
 model Episode {
@@ -42,4 +45,36 @@ model Episode {
   publishedAt DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  listeningHistories ListeningHistory[]
+}
+
+model UserSubscription {
+  id           String   @id @default(cuid())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  podcast      Podcast  @relation(fields: [podcastId], references: [id], onDelete: Cascade)
+  podcastId    String
+  subscribedAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([userId, podcastId])
+  @@index([userId])
+  @@index([podcastId])
+}
+
+model ListeningHistory {
+  id              String   @id @default(cuid())
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String
+  episode         Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  episodeId       String
+  positionSeconds Int?
+  completed       Boolean  @default(false)
+  lastPlayedAt    DateTime @default(now())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([userId, episodeId])
+  @@index([userId, lastPlayedAt])
 }
