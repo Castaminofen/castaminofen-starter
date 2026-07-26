@@ -1,20 +1,21 @@
 # Castaminofen
 
-Castaminofen یک پلتفرم موبایل‌فرست برای پادکست است که به‌صورت مونو-ریپو پیاده‌سازی شده است. این مخزن شامل یک اپ فرانت‌اند با Next.js، یک اپ بک‌اند با NestJS، بسته مشترک تایپ‌ها و زیرساخت محلی برای PostgreSQL، Redis و MinIO می‌شود.
+Castaminofen یک پلتفرم موبایل‌فرست برای پادکست است که در قالب یک مونو-ریپو برای تجربه‌ی مرور، کشف، مدیریت و پخش پادکست پیاده‌سازی شده است. این مخزن شامل یک اپ فرانت‌اند با Next.js، یک اپ بک‌اند با NestJS، بسته‌ی مشترک تایپ‌ها و زیرساخت محلی برای PostgreSQL، Redis و MinIO است.
 
-## معرفی پروژه
+## مرور کلی پروژه
 
-این پروژه برای ارائه تجربه‌ی مرور، کشف و پخش پادکست طراحی شده است. در نسخه‌ی فعلی، تمرکز روی ساختار پایه‌ی محصول است؛ شامل احراز هویت، مدیریت پادکست و اپیزود، بخش Library و Playlist و زیرساختی که برای پخش و تجربه‌های آینده لازم است.
+نسخه‌ی فعلی این ریپو در محدوده‌ی MVP، تجربه‌ی اصلی کاربر را برای احراز هویت، مرور پادکست و اپیزود، جستجو، Library، Playlist و پخش آنلاین فراهم می‌کند. تمرکز بر ساختار سازگار، مالکیت feature، و آماده‌سازی برای اولین انتشار رسمی است.
 
-ویژگی‌های اصلی قابل‌تشخیص در این نسخه شامل موارد زیر است:
+## نمای کلی معماری
 
-- احراز هویت کاربر
-- مدیریت پادکست و اپیزود
-- مدیریت Library و Playlist
-- پخش آنلاین و ساختار اولیه‌ی پخش
-- زیرساخت محلی برای دیتابیس و storage
+پروژه بر پایه‌ی معماری مونو-ریپو و تقسیم مسئولیت‌های feature-oriented ساخته شده است:
 
-## تکنولوژی‌های استفاده‌شده
+- Frontend در [apps/web](apps/web) با Next.js و React پیاده‌سازی شده است.
+- Backend در [apps/api](apps/api) با NestJS و Prisma اجرا می‌شود.
+- بسته‌ی مشترک تایپ‌ها در [packages/shared-types](packages/shared-types) نگهداری می‌شود.
+- مستندات و گزارش‌های فازها در [docs](docs) مستقر شده‌اند.
+
+## تکنولوژی‌های اصلی
 
 ### Frontend
 - Next.js 14
@@ -41,42 +42,28 @@ Castaminofen یک پلتفرم موبایل‌فرست برای پادکست ا�
 - class-transformer
 - cookie-parser
 
-### ابزارهای توسعه
-- pnpm
-- Docker Compose
-- ESLint
-- Prettier
-- TypeScript
+## ساختار مخزن
 
-## ساختار پروژه
-
-ریپو به‌صورت مونو-ریپو سازماندهی شده است:
-
-- `apps/web`: اپ فرانت‌اند با Next.js
-- `apps/api`: اپ بک‌اند با NestJS
-- `packages/shared-types`: بسته مشترک برای تایپ‌های مورد استفاده در چند قسمت پروژه
-- `packages/config`: پیکربندی مشترک TypeScript
-- `docs`: مستندات و گزارش‌های فازها
-- `docker-compose.yml`: سرویس‌های محلی PostgreSQL، Redis و MinIO
-
-هر اپ مسئولیت خود را دارد و کدهای مشترک در بسته‌های مناسب نگهداری می‌شوند.
+- [apps/web](apps/web): اپ فرانت‌اند
+- [apps/api](apps/api): اپ بک‌اند
+- [packages/shared-types](packages/shared-types): تایپ‌های مشترک
+- [packages/config](packages/config): پیکربندی مشترک
+- [docs](docs): مستندات، گزارش‌ها و فازها
+- [docker-compose.yml](docker-compose.yml): سرویس‌های محلی دیتابیس و storage
 
 ## پیش‌نیازها
 
-قبل از اجرای پروژه روی محیط محلی، موارد زیر لازم است:
+قبل از اجرای پروژه، موارد زیر لازم است:
 
 - Git
-- Node.js با نسخه LTS اخیر
+- Node.js با نسخه‌ی LTS اخیر
 - pnpm
 - Docker و Docker Compose
-- PostgreSQL (در صورت استفاده از راه‌اندازی جداگانه یا بررسی دستی)
-- فایل‌های محیطی لازم برای اجرای اپ
+- PostgreSQL، Redis و MinIO برای اجرای کامل محیط محلی
 
-> نسخه دقیق Node.js در این ریپو مشخص نشده است، بنابراین استفاده از نسخه LTS اخیر پیشنهاد می‌شود.
+## نصب و راه‌اندازی
 
-## نصب پروژه
-
-1. سورس پروژه را clone کنید:
+1. کلون پروژه را دریافت کنید:
 
 ```bash
 git clone <repository-url>
@@ -89,7 +76,7 @@ cd castaminofen-starter
 pnpm install
 ```
 
-3. فایل‌های محیطی نمونه را از روی الگو ایجاد کنید:
+3. فایل‌های محیطی نمونه را آماده کنید:
 
 ```bash
 cp .env.example .env
@@ -102,116 +89,81 @@ cp apps/api/.env.example apps/api/.env
 docker compose up -d
 ```
 
-5. در صورت نیاز، Prisma را آماده کنید. در این نسخه اسکریپت رسمی برای Prisma Generate/Migrate/Seed در package.json تعریف نشده است، بنابراین این مرحله باید با بررسی محیط محلی انجام شود.
+## اجرای برنامه
 
-## اسکریپت‌های پروژه
+### Backend
 
-### اسکریپت‌های سطح ریشه
+```bash
+pnpm dev:api
+```
 
-| اسکریپت | توضیح |
-|---|---|
-| `pnpm dev:web` | اجرای اپ Frontend در حالت توسعه |
-| `pnpm dev:api` | اجرای اپ Backend در حالت توسعه |
-| `pnpm build` | Build کل Workspace شامل shared-types، web و api |
-| `pnpm lint` | اجرای lint برای کل Workspace |
-| `pnpm lint:web` | اجرای lint برای Frontend |
-| `pnpm lint:api` | اجرای lint برای Backend |
-| `pnpm lint:fix` | اجرای ESLint با اصلاح خودکار |
+### Frontend
 
-### اسکریپت‌های Frontend
+```bash
+pnpm dev:web
+```
 
-| اسکریپت | توضیح |
-|---|---|
-| `pnpm --filter @castaminofen/web dev` | اجرای Next.js در حالت توسعه |
-| `pnpm --filter @castaminofen/web build` | Build اپ Web |
-| `pnpm --filter @castaminofen/web start` | اجرای نسخه production اپ Web |
-| `pnpm --filter @castaminofen/web lint` | اجرای lint اپ Web |
-| `pnpm --filter @castaminofen/web test` | اجرای تست‌های Frontend |
+## تست، lint و build
 
-### اسکریپت‌های Backend
-
-| اسکریپت | توضیح |
-|---|---|
-| `pnpm --filter @castaminofen/api start` | اجرای نسخه build شده‌ی Backend |
-| `pnpm --filter @castaminofen/api start:dev` | اجرای Backend در حالت watch |
-| `pnpm --filter @castaminofen/api build` | Build اپ API |
-| `pnpm --filter @castaminofen/api lint` | اجرای lint اپ API |
-
-### اسکریپت‌های بسته مشترک
-
-| اسکریپت | توضیح |
-|---|---|
-| `pnpm --filter @castaminofen/shared-types build` | Build بسته shared-types |
+```bash
+pnpm lint
+pnpm build
+pnpm --filter @castaminofen/web test
+```
 
 ## متغیرهای محیطی
 
-فایل‌های نمونه‌ی محیطی در این ریپو موجود هستند:
+فایل‌های نمونه‌ی محیطی موجود هستند:
 
 - [.env.example](.env.example)
 - [apps/api/.env.example](apps/api/.env.example)
 
-| نام متغیر | کاربرد | وضعیت | توضیح |
-|---|---|---|---|
-| `DATABASE_URL` | اتصال به PostgreSQL | لازم | آدرس اتصال دیتابیس |
-| `REDIS_URL` | اتصال به Redis | لازم | آدرس سرویس Redis |
-| `MINIO_ENDPOINT` | endpoint MinIO | لازم | آدرس سرویس MinIO |
-| `MINIO_ACCESS_KEY` | access key MinIO | لازم | نام کاربری MinIO |
-| `MINIO_SECRET_KEY` | secret key MinIO | لازم | رمز عبور MinIO |
-| `MINIO_BUCKET` | bucket MinIO | لازم | نام bucket مورد استفاده |
-| `PORT` | پورت API | لازم | پورت اجرای Backend |
-| `JWT_SECRET` | امضای توکن JWT | لازم | secret برای access token |
-| `JWT_REFRESH_SECRET` | امضای refresh token | لازم | secret برای refresh token |
-| `ACCESS_TOKEN_TTL` | مدت اعتبار access token | لازم در فایل نمونه API | مثال: `15m` |
-| `REFRESH_TOKEN_TTL` | مدت اعتبار refresh token | لازم در فایل نمونه API | مثال: `7d` |
+متغیرهای اصلی شامل موارد زیر هستند:
 
-## معماری کلی پروژه
+- DATABASE_URL
+- REDIS_URL
+- MINIO_ENDPOINT
+- MINIO_ACCESS_KEY
+- MINIO_SECRET_KEY
+- MINIO_BUCKET
+- PORT
+- JWT_SECRET
+- JWT_REFRESH_SECRET
+- ACCESS_TOKEN_TTL
+- REFRESH_TOKEN_TTL
 
-پروژه به‌صورت مونو-ریپو طراحی شده است و تقسیم وظایف آن به‌صورت زیر است:
+## امکانات اصلی MVP
 
-- Frontend مسئول تجربه کاربری و نمایش صفحه‌ها است.
-- Backend مسئول منطق کسب‌وکار، اعتبارسنجی و دسترسی به دیتابیس است.
-- بسته‌های مشترک برای استفاده‌ی مشترک در چند بخش پروژه نگهداری می‌شوند.
-- Featureهای اصلی در سطح فرانت‌اند و بک‌اند به‌صورت مجزا مدیریت می‌شوند.
+- احراز هویت کاربر
+- مرور پادکست و اپیزود
+- جستجو
+- Library و Continue Listening
+- Playlist
+- Player با Queue، Repeat و Shuffle
+- زیرساخت API و Prisma برای داده‌های اصلی
 
-این ساختار برای رشد تدریجی و حفظ سادگی پروژه طراحی شده است.
+## مستندات مرتبط
 
-## روند توسعه
+- [docs/architecture.md](docs/architecture.md)
+- [docs/quick-start.md](docs/quick-start.md)
+- [docs/project-status.md](docs/project-status.md)
+- [docs/releases/v1.0.0-mvp.md](docs/releases/v1.0.0-mvp.md)
 
-### نصب و راه‌اندازی
-```bash
-pnpm install
-cp .env.example .env
-cp apps/api/.env.example apps/api/.env
-docker compose up -d
-```
+## بخش اسکرین‌شات
 
-### Build
-```bash
-pnpm build
-```
+بخش اسکرین‌شات برای نسخه‌ی رسمی MVP در آینده تکمیل خواهد شد.
 
-### Lint
-```bash
-pnpm lint
-```
+## نقشه راه
 
-### Test
-```bash
-pnpm --filter @castaminofen/web test
-```
+- تکمیل CI و تست‌های end-to-end
+- بهبود تجربه‌ی refresh/session در وب
+- تقویت پایداری runtime و edge-case‌های پخش
+- گسترش قابلیت‌های بعدی در مسیر محصول
 
-### Prisma workflow
-در این نسخه، workflow Prisma به‌صورت رسمی از طریق اسکریپت‌های package.json تعریف نشده است و باید با بررسی محیط محلی انجام شود.
+## مشارکت
 
-## مشارکت در توسعه
-
-برای مشارکت در پروژه، پیشنهاد می‌شود:
-
-- تغییرات را کوچک و هدفمند نگه دارید.
-- ساختار فعلی پروژه را رعایت کنید.
-- قبل از اضافه کردن ابزار یا dependency جدید، نیاز واقعی را بررسی کنید.
-- مستندات را به‌روز نگه دارید.
+برای مشارکت در توسعه، تغییرات را کوچک و هدفمند نگه دارید، ساختار فعلی را رعایت کنید و مستندات را به‌روز نگه دارید.
 
 ## لایسنس
 
-در این مخزن فایل مجوزی یافت نشد.
+در این مخزن در حال حاضر فایل مجوزی وجود ندارد. برای انتشار رسمی، تکمیل مجوز مناسب توصیه می‌شود.
