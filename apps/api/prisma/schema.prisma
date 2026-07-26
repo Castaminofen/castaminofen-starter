@@ -8,16 +8,17 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  password  String
-  hashedRefreshToken String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  podcasts  Podcast[]
-  userSubscriptions UserSubscription[]
-  listeningHistories ListeningHistory[]
+  id                  String   @id @default(cuid())
+  email               String   @unique
+  name                String?
+  password            String
+  hashedRefreshToken  String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  podcasts            Podcast[]
+  playlists           Playlist[]
+  userSubscriptions   UserSubscription[]
+  listeningHistories  ListeningHistory[]
 }
 
 model Podcast {
@@ -36,16 +37,52 @@ model Podcast {
 }
 
 model Episode {
+  id                  String   @id @default(cuid())
+  podcast             Podcast  @relation(fields: [podcastId], references: [id])
+  podcastId           String
+  title               String
+  description         String?
+  audioUrl            String?
+  publishedAt         DateTime?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  listeningHistories  ListeningHistory[]
+  playlistItems       PlaylistItem[]
+}
+
+model Playlist {
   id          String   @id @default(cuid())
-  podcast     Podcast  @relation(fields: [podcastId], references: [id])
-  podcastId   String
+  userId      String
   title       String
   description String?
-  audioUrl    String?
-  publishedAt DateTime?
+  imageUrl    String?
+  isPublic    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  listeningHistories ListeningHistory[]
+  deletedAt   DateTime?
+
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items       PlaylistItem[]
+
+  @@index([userId, updatedAt])
+  @@index([isPublic, updatedAt])
+}
+
+model PlaylistItem {
+  id          String   @id @default(cuid())
+  playlistId  String
+  episodeId   String
+  position    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  playlist    Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  episode     Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, episodeId])
+  @@unique([playlistId, position])
+  @@index([playlistId, position])
+  @@index([episodeId])
 }
 
 model UserSubscription {

@@ -69,6 +69,12 @@
 - build کلی ریپو و lint با موفقیت تأیید شدند.
 - هیچ تغییر runtime، route یا API contract در این فاز ایجاد نشد.
 
+## 25. وضعیت فاز 3.8.1
+- فاز 3.8.1 — Library & Player Runtime Validation به‌صورت validation-only و بدون تغییر کد اجرا شد.
+- مالکیت runtime Player، رفتار resume، حفظ queue، مسیر به‌روزرسانی listening history، مالکیت React Query، مرزهای component و وابستگی‌ها بررسی و تأیید شدند.
+- اعتبارسنجی با Player runtime tests، lint و build انجام شد و نتیجه آن PASS بود.
+- هیچ fix runtime یا معماری‌ای لازم نبود و مستند فاز در [docs/phases/Phase-3.8.1-Library-Player-Runtime-Validation.md](./phases/Phase-3.8.1-Library-Player-Runtime-Validation.md) ثبت شد.
+
 ## 9. وضعیت فاز 2.7.1
 - فاز 2.7.1 — Auth Feature Boundary Adoption با موفقیت اجرا شد.
 - مرز مالکیت auth در سطح فرانت‌اند به‌صورت تدریجی و بدون تغییر رفتار یا قرارداد API تثبیت شد.
