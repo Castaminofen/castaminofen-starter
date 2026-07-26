@@ -8,6 +8,7 @@
 - فاز 3.5.1 — Library Backend Architecture & Data Model Definition نیز به‌صورت documentation-only تکمیل شده و در [docs/reports/phase-3.5.1-library-backend-architecture.md](../docs/reports/phase-3.5.1-library-backend-architecture.md) ثبت شده است.
 - نتیجه‌ی حاصل: معماری آمادگی دارد اما داده‌های backend برای مدل‌های UserSubscription و ListeningHistory نیاز دارند.
 - فاز 3.6 — Library Backend Readiness برای طراحی مدل‌های داده و endpoints پیشنهاد شده است.
+ - فاز 3.5.2 — Library Backend Implementation: مدل‌های Prisma (`UserSubscription`, `ListeningHistory`) اضافه شده، migration تولید و ماژول `library` پیاده‌سازی شد. build و lint بک‌اند با موفقیت اجرا شدند. گزارش فاز در [docs/reports/phase-3.5.2-library-backend-implementation.md](./reports/phase-3.5.2-library-backend-implementation.md) ثبت شده است.
 - ساختار پایه، تنظیمات TypeScript، ESLint و پیکربندی‌های توسعه برای هر اپ در دسترس است.
 - لایه‌ی foundation فرانت‌اند (design system، app shell، infrastructure و state patterns) در این نسخه پیاده‌سازی شده است.
 - ویژگی‌های MVP فعلی شامل auth، پادکست، اپیزود، player و search نیز در حال حاضر فعال و قابل‌استفاده هستند.
