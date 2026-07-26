@@ -1,21 +1,20 @@
 # Castaminofen
 
-Castaminofen is a mobile-first podcast platform built as a monorepo. The repository currently contains a Next.js web application, a NestJS API, shared TypeScript types, and local infrastructure for PostgreSQL, Redis, and MinIO.
+Castaminofen یک پلتفرم موبایل‌فرست برای پادکست است که به‌صورت مونو-ریپو پیاده‌سازی شده است. این مخزن شامل یک اپ فرانت‌اند با Next.js، یک اپ بک‌اند با NestJS، بسته مشترک تایپ‌ها و زیرساخت محلی برای PostgreSQL، Redis و MinIO می‌شود.
 
-## Project Overview
+## معرفی پروژه
 
-Castaminofen is intended to support podcast discovery, browsing, and listening workflows in a modern web experience. The current repository focuses on the foundational structure for the platform: authentication, podcast and episode management, library and playlist areas, and the shared infrastructure needed to support future playback and offline experiences.
+این پروژه برای ارائه تجربه‌ی مرور، کشف و پخش پادکست طراحی شده است. در نسخه‌ی فعلی، تمرکز روی ساختار پایه‌ی محصول است؛ شامل احراز هویت، مدیریت پادکست و اپیزود، بخش Library و Playlist و زیرساختی که برای پخش و تجربه‌های آینده لازم است.
 
-At a high level, the project is organized as:
+ویژگی‌های اصلی قابل‌تشخیص در این نسخه شامل موارد زیر است:
 
-- a frontend application for the user experience
-- a backend API for business logic and data access
-- a shared types package for common contracts
-- local Docker services for database and storage dependencies
+- احراز هویت کاربر
+- مدیریت پادکست و اپیزود
+- مدیریت Library و Playlist
+- پخش آنلاین و ساختار اولیه‌ی پخش
+- زیرساخت محلی برای دیتابیس و storage
 
-The current architecture is a simple monorepo with clear separation between the web app and API, while keeping shared code centralized where it is reused.
-
-## Tech Stack
+## تکنولوژی‌های استفاده‌شده
 
 ### Frontend
 - Next.js 14
@@ -36,162 +35,183 @@ The current architecture is a simple monorepo with clear separation between the 
 - PostgreSQL
 - Redis
 - MinIO
-- JWT-based authentication
+- JWT
 - bcrypt
-- class-validator / class-transformer
+- class-validator
+- class-transformer
 - cookie-parser
 
-### Tooling
+### ابزارهای توسعه
 - pnpm
 - Docker Compose
 - ESLint
 - Prettier
 - TypeScript
 
-## Repository Structure
+## ساختار پروژه
 
-- apps/web: the Next.js frontend application
-- apps/api: the NestJS backend application
-- apps/api/prisma: Prisma schema and database modeling
-- packages/shared-types: shared TypeScript types used across the workspace
-- packages/config: additional shared configuration assets present in the repository
-- docker-compose.yml: local services for PostgreSQL, Redis, and MinIO
-- docs: project documentation and implementation reports
+ریپو به‌صورت مونو-ریپو سازماندهی شده است:
 
-## Prerequisites
+- `apps/web`: اپ فرانت‌اند با Next.js
+- `apps/api`: اپ بک‌اند با NestJS
+- `packages/shared-types`: بسته مشترک برای تایپ‌های مورد استفاده در چند قسمت پروژه
+- `packages/config`: پیکربندی مشترک TypeScript
+- `docs`: مستندات و گزارش‌های فازها
+- `docker-compose.yml`: سرویس‌های محلی PostgreSQL، Redis و MinIO
 
-Before running the project locally, make sure you have:
+هر اپ مسئولیت خود را دارد و کدهای مشترک در بسته‌های مناسب نگهداری می‌شوند.
+
+## پیش‌نیازها
+
+قبل از اجرای پروژه روی محیط محلی، موارد زیر لازم است:
 
 - Git
-- pnpm 10.32.1 (declared in the root package manifest)
-- Docker and Docker Compose for the local infrastructure services
-- A working shell environment with access to the repository
+- Node.js با نسخه LTS اخیر
+- pnpm
+- Docker و Docker Compose
+- PostgreSQL (در صورت استفاده از راه‌اندازی جداگانه یا بررسی دستی)
+- فایل‌های محیطی لازم برای اجرای اپ
 
-No exact Node.js version is pinned in the repository, so a recent LTS release is the safest choice.
+> نسخه دقیق Node.js در این ریپو مشخص نشده است، بنابراین استفاده از نسخه LTS اخیر پیشنهاد می‌شود.
 
-## Available Scripts
+## نصب پروژه
 
-The repository exposes scripts at the root and inside the workspace packages.
+1. سورس پروژه را clone کنید:
 
-### Root workspace
-- pnpm dev:web — starts the web app
-- pnpm dev:api — starts the API in development mode
-- pnpm build — builds the shared types package, the web app, and the API
-- pnpm lint — runs linting across the workspace
-- pnpm lint:web — runs linting for the web app
-- pnpm lint:api — runs linting for the API
-- pnpm lint:fix — runs ESLint with automatic fixes
+```bash
+git clone <repository-url>
+cd castaminofen-starter
+```
 
-### Web app
-- pnpm --filter @castaminofen/web dev — starts the Next.js development server
-- pnpm --filter @castaminofen/web build — builds the web app
-- pnpm --filter @castaminofen/web start — starts the production build
-- pnpm --filter @castaminofen/web lint — runs web linting
-- pnpm --filter @castaminofen/web test — runs Vitest tests
-
-### API
-- pnpm --filter @castaminofen/api start — starts the built API
-- pnpm --filter @castaminofen/api start:dev — starts the API in watch mode
-- pnpm --filter @castaminofen/api build — builds the API
-- pnpm --filter @castaminofen/api lint — runs API linting
-
-### Shared types
-- pnpm --filter @castaminofen/shared-types build — builds the shared types package
-
-## Environment Variables
-
-The repository includes environment examples at the root and inside the API package.
-
-| Variable | Purpose | Required | Example |
-|---|---|---|---|
-| DATABASE_URL | PostgreSQL connection string | Yes | postgresql://postgres:postgres@localhost:5432/castaminofen |
-| REDIS_URL | Redis connection string | Yes | redis://localhost:6379 |
-| MINIO_ENDPOINT | MinIO endpoint | Yes | http://localhost:9000 |
-| MINIO_ACCESS_KEY | MinIO access key | Yes | minioadmin |
-| MINIO_SECRET_KEY | MinIO secret key | Yes | minioadmin |
-| MINIO_BUCKET | MinIO bucket name | Yes | castaminofen |
-| PORT | API port | Yes | 3001 |
-| JWT_SECRET | JWT signing secret | Yes | development-jwt-secret |
-| JWT_REFRESH_SECRET | JWT refresh signing secret | Yes | development-refresh-secret |
-| ACCESS_TOKEN_TTL | API access token lifetime | Yes for the API example file | 15m |
-| REFRESH_TOKEN_TTL | API refresh token lifetime | Yes for the API example file | 7d |
-
-Use the files .env.example and apps/api/.env.example as the starting point for local configuration.
-
-## Development Workflow
-
-### 1. Install dependencies
-Run:
+2. وابستگی‌ها را نصب کنید:
 
 ```bash
 pnpm install
 ```
 
-### 2. Start local infrastructure
-The repository includes Docker Compose services for PostgreSQL, Redis, and MinIO:
-
-```bash
-docker compose up -d
-```
-
-### 3. Configure environment files
-Copy the example files to local environment files before starting the apps:
+3. فایل‌های محیطی نمونه را از روی الگو ایجاد کنید:
 
 ```bash
 cp .env.example .env
 cp apps/api/.env.example apps/api/.env
 ```
 
-Adjust the values if your local environment differs from the defaults.
-
-### 4. Start the backend
+4. سرویس‌های محلی را راه‌اندازی کنید:
 
 ```bash
-pnpm dev:api
+docker compose up -d
 ```
 
-### 5. Start the frontend
+5. در صورت نیاز، Prisma را آماده کنید. در این نسخه اسکریپت رسمی برای Prisma Generate/Migrate/Seed در package.json تعریف نشده است، بنابراین این مرحله باید با بررسی محیط محلی انجام شود.
 
+## اسکریپت‌های پروژه
+
+### اسکریپت‌های سطح ریشه
+
+| اسکریپت | توضیح |
+|---|---|
+| `pnpm dev:web` | اجرای اپ Frontend در حالت توسعه |
+| `pnpm dev:api` | اجرای اپ Backend در حالت توسعه |
+| `pnpm build` | Build کل Workspace شامل shared-types، web و api |
+| `pnpm lint` | اجرای lint برای کل Workspace |
+| `pnpm lint:web` | اجرای lint برای Frontend |
+| `pnpm lint:api` | اجرای lint برای Backend |
+| `pnpm lint:fix` | اجرای ESLint با اصلاح خودکار |
+
+### اسکریپت‌های Frontend
+
+| اسکریپت | توضیح |
+|---|---|
+| `pnpm --filter @castaminofen/web dev` | اجرای Next.js در حالت توسعه |
+| `pnpm --filter @castaminofen/web build` | Build اپ Web |
+| `pnpm --filter @castaminofen/web start` | اجرای نسخه production اپ Web |
+| `pnpm --filter @castaminofen/web lint` | اجرای lint اپ Web |
+| `pnpm --filter @castaminofen/web test` | اجرای تست‌های Frontend |
+
+### اسکریپت‌های Backend
+
+| اسکریپت | توضیح |
+|---|---|
+| `pnpm --filter @castaminofen/api start` | اجرای نسخه build شده‌ی Backend |
+| `pnpm --filter @castaminofen/api start:dev` | اجرای Backend در حالت watch |
+| `pnpm --filter @castaminofen/api build` | Build اپ API |
+| `pnpm --filter @castaminofen/api lint` | اجرای lint اپ API |
+
+### اسکریپت‌های بسته مشترک
+
+| اسکریپت | توضیح |
+|---|---|
+| `pnpm --filter @castaminofen/shared-types build` | Build بسته shared-types |
+
+## متغیرهای محیطی
+
+فایل‌های نمونه‌ی محیطی در این ریپو موجود هستند:
+
+- [.env.example](.env.example)
+- [apps/api/.env.example](apps/api/.env.example)
+
+| نام متغیر | کاربرد | وضعیت | توضیح |
+|---|---|---|---|
+| `DATABASE_URL` | اتصال به PostgreSQL | لازم | آدرس اتصال دیتابیس |
+| `REDIS_URL` | اتصال به Redis | لازم | آدرس سرویس Redis |
+| `MINIO_ENDPOINT` | endpoint MinIO | لازم | آدرس سرویس MinIO |
+| `MINIO_ACCESS_KEY` | access key MinIO | لازم | نام کاربری MinIO |
+| `MINIO_SECRET_KEY` | secret key MinIO | لازم | رمز عبور MinIO |
+| `MINIO_BUCKET` | bucket MinIO | لازم | نام bucket مورد استفاده |
+| `PORT` | پورت API | لازم | پورت اجرای Backend |
+| `JWT_SECRET` | امضای توکن JWT | لازم | secret برای access token |
+| `JWT_REFRESH_SECRET` | امضای refresh token | لازم | secret برای refresh token |
+| `ACCESS_TOKEN_TTL` | مدت اعتبار access token | لازم در فایل نمونه API | مثال: `15m` |
+| `REFRESH_TOKEN_TTL` | مدت اعتبار refresh token | لازم در فایل نمونه API | مثال: `7d` |
+
+## معماری کلی پروژه
+
+پروژه به‌صورت مونو-ریپو طراحی شده است و تقسیم وظایف آن به‌صورت زیر است:
+
+- Frontend مسئول تجربه کاربری و نمایش صفحه‌ها است.
+- Backend مسئول منطق کسب‌وکار، اعتبارسنجی و دسترسی به دیتابیس است.
+- بسته‌های مشترک برای استفاده‌ی مشترک در چند بخش پروژه نگهداری می‌شوند.
+- Featureهای اصلی در سطح فرانت‌اند و بک‌اند به‌صورت مجزا مدیریت می‌شوند.
+
+این ساختار برای رشد تدریجی و حفظ سادگی پروژه طراحی شده است.
+
+## روند توسعه
+
+### نصب و راه‌اندازی
 ```bash
-pnpm dev:web
+pnpm install
+cp .env.example .env
+cp apps/api/.env.example apps/api/.env
+docker compose up -d
 ```
 
-### 6. Build the workspace
-
+### Build
 ```bash
 pnpm build
 ```
 
-### 7. Lint and test
-
+### Lint
 ```bash
 pnpm lint
+```
+
+### Test
+```bash
 pnpm --filter @castaminofen/web test
 ```
 
-### 8. Prisma workflow
-The repository contains a Prisma schema at apps/api/prisma/schema.prisma and Prisma dependencies in the API package. There are no dedicated Prisma migration, db push, generate, or seed scripts defined in the package manifests, so those steps should be verified manually in the local environment.
+### Prisma workflow
+در این نسخه، workflow Prisma به‌صورت رسمی از طریق اسکریپت‌های package.json تعریف نشده است و باید با بررسی محیط محلی انجام شود.
 
-## Architecture Overview
+## مشارکت در توسعه
 
-The project follows a straightforward monorepo structure:
+برای مشارکت در پروژه، پیشنهاد می‌شود:
 
-- the web app handles the user interface and routes
-- the API handles application logic, validation, and database access
-- shared types reduce duplication across the workspace
-- Docker services provide the supporting infrastructure needed by the apps
+- تغییرات را کوچک و هدفمند نگه دارید.
+- ساختار فعلی پروژه را رعایت کنید.
+- قبل از اضافه کردن ابزار یا dependency جدید، نیاز واقعی را بررسی کنید.
+- مستندات را به‌روز نگه دارید.
 
-This keeps the platform easy to evolve while preserving a clear separation between frontend and backend responsibilities.
+## لایسنس
 
-## Contributing
-
-When contributing to this repository:
-
-- keep changes aligned with the existing monorepo structure
-- prefer small, focused updates
-- use the existing folders and feature boundaries instead of introducing new patterns
-- update documentation when behavior or workflows change
-
-## License
-
-No license file was found in the repository at the time of writing.
+در این مخزن فایل مجوزی یافت نشد.
